@@ -1,7 +1,5 @@
 <template>
-  <div class="w-full h-[105px] bg-primary flex items-center justify-center">
-    <div class="container">
-      <h1 class="text-white text-2xl font-bold">TO DO LIST APP</h1>
-    </div>
+  <div class="container p-10 xl:max-w-5xl">
+    <h1 class="text-2xl font-bold text-white">TO DO LIST APP</h1>
   </div>
 </template>
