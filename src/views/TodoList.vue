@@ -78,6 +78,11 @@ async function handleSubmit(data) {
       </button>
     </div>
 
+    <div v-if="!todosStore.todos.length" data-cy="todo-empty-state"
+      class="flex items-center justify-center w-full max-w-lg mx-auto cursor-pointer mt-28">
+      <img src="../assets/img/todo-empty-state.svg" alt="">
+    </div>
+
     <div class="flex flex-col space-y-4 mt-14">
       <!-- Card Item -->
       <TodoItem v-for="todo in todosStore.todos" :key="todo.id" :todo="todo" />

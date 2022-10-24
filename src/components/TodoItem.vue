@@ -38,7 +38,7 @@ const priorityColor = computed(() => {
 </script>
 
 <template>
-  <div class="flex justify-between w-full px-6 py-8 bg-white rounded-xl">
+  <div data-cy="todo-item" class="flex justify-between w-full px-6 py-8 bg-white rounded-xl">
     <div class="flex items-center justify-between space-x-4">
 
       <input data-cy="todo-item-checkbox" id="checked" name="remember-me" type="checkbox"
