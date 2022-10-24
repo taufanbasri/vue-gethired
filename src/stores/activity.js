@@ -4,6 +4,7 @@ export const useActivityStore = defineStore("activity-store", {
   state: () => {
     return {
       activities: [],
+      activity: {},
     };
   },
   actions: {
@@ -13,6 +14,13 @@ export const useActivityStore = defineStore("activity-store", {
       )
         .then(async (res) => await res.json())
         .then((json) => (this.activities = json.data));
+    },
+    async getActivityOne(activityId) {
+      await fetch(
+        `https://todo.api.devcode.gethired.id/activity-groups/${activityId}`
+      )
+        .then(async (res) => await res.json())
+        .then((json) => (this.activity = json));
     },
     async createActivity() {
       await fetch("https://todo.api.devcode.gethired.id/activity-groups", {

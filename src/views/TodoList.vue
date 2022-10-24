@@ -7,19 +7,25 @@ import { useRoute, useRouter } from "vue-router";
 import { useTodosStore } from "../stores/todos";
 import TodoItem from "../components/TodoItem.vue";
 import TodoModal from "../components/modals/TodoModal.vue";
+import { useActivityStore } from "../stores/activity";
 
 const route = useRoute()
 const router = useRouter()
 const todosStore = useTodosStore()
+const activityStore = useActivityStore()
 
 onMounted(async () => {
   await todosStore.getAllTodos(route.params.id)
+  await activityStore.getActivityOne(route.params.id)
 })
 
 const modal = ref()
 
 const activityId = computed(() => {
   return route.params.id
+})
+const activity = computed(() => {
+  return activityStore.activity.title
 })
 
 const backHandler = () => {
@@ -45,7 +51,7 @@ async function handleSubmit(data) {
           <ChevronLeftIcon data-cy="todo-back-button" class="font-extrabold" />
         </button>
 
-        <h2 class="mx-4" data-cy="todo-title">Activity</h2>
+        <h2 class="mx-4" data-cy="todo-title">{{ activity }}</h2>
 
         <div class="w-8 h-8 text-lightDark">
           <PencilIcon data-cy="todo-title-edit-button" />

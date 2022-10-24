@@ -2,7 +2,6 @@
 import { TrashIcon, PencilIcon } from "@heroicons/vue/24/outline";
 import { ref, computed } from "vue";
 import DeleteModal from "./modals/DeleteModal.vue";
-import IndicatorItem from "../components/IndicatorItem.vue";
 
 const props = defineProps({
   todo: {
@@ -13,7 +12,27 @@ const props = defineProps({
 const modal = ref()
 
 const priorityColor = computed(() => {
-  return `bg-${props.todo.priority}`
+  let background = ''
+  switch (props.todo.priority) {
+    case 'very-high':
+      background = 'bg-[#ED4C5C]'
+      break;
+    case 'high':
+      background = 'bg-[#F8A541]'
+      break;
+    case 'medium':
+      background = 'bg-[#00A790]'
+      break;
+    case 'low':
+      background = 'bg-[#428BC1]'
+      break;
+
+    default:
+      background = 'bg-[#8942C1]'
+      break;
+  }
+
+  return background
 })
 
 </script>
@@ -25,7 +44,7 @@ const priorityColor = computed(() => {
       <input data-cy="todo-item-checkbox" id="checked" name="remember-me" type="checkbox"
         class="w-6 h-6 border-gray-300 text-primary focus:ring-primary" />
 
-      <IndicatorItem :priorityColor="priorityColor" data-cy="todo-item-priority-indicator" />
+      <div class="w-3 h-3 rounded-full" :class=[priorityColor]></div>
 
       <h3 data-cy="todo-item-title" class="text-lg font-medium text-dark">{{ todo.title }}</h3>
 
