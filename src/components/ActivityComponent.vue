@@ -2,7 +2,9 @@
 import { TrashIcon } from "@heroicons/vue/24/outline";
 import { computed } from "vue";
 import { useDateFormat } from "@vueuse/shared";
+import { useActivityStore } from "../stores/activity";
 
+const activityStore = useActivityStore()
 const props = defineProps({
   activity: {
     type: Object
@@ -11,9 +13,13 @@ const props = defineProps({
 
 const dateFormated = computed(() => {
   let formatedDate = useDateFormat(props.activity.created_at, 'D MMMM YYYY')
-  
+
   return formatedDate.value
 })
+
+function deleteHandler() {
+  activityStore.removeActivity(props.activity.id)
+}
 
 </script>
 
@@ -23,9 +29,9 @@ const dateFormated = computed(() => {
 
     <div class="flex items-center justify-between text-lightDark">
       <span data-cy="activity-item-date">{{ dateFormated }}</span>
-      <div class="w-6 h-6">
+      <button @click="deleteHandler" class="w-6 h-6">
         <TrashIcon data-cy="activity-item-delete-button" />
-      </div>
+      </button>
     </div>
   </div>
 </template>
