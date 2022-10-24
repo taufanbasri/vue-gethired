@@ -82,7 +82,7 @@ defineExpose({
 
 <template>
   <TransitionRoot appear :show="isOpen" as="template">
-    <Dialog as="div" @close="closeModal" class="relative z-10">
+    <Dialog as="div" @close="closeModal" class="relative z-10" data-cy="modal-add">
       <TransitionChild as="template" enter="duration-300 ease-out" enter-from="opacity-0" enter-to="opacity-100"
         leave="duration-200 ease-in" leave-from="opacity-100" leave-to="opacity-0">
         <div class="fixed inset-0 bg-black bg-opacity-25" />
@@ -119,11 +119,11 @@ defineExpose({
                 <div class="mt-4">
                   <label data-cy="modal-add-priority-title" for="priority"
                     class="block text-xs font-semibold text-dark">PRIORITY</label>
-                  <Listbox v-model="selectedPriority" data-cy="modal-add-priority-dropdown">
-                    <div class="mt-2">
+                  <Listbox v-model="selectedPriority">
+                    <div class="mt-2" data-cy="modal-add-priority-dropdown">
                       <ListboxButton
                         class="relative p-4 pr-10 text-left bg-white rounded-lg shadow-md cursor-default focus:outline-none focus-visible:border-primary focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-primary sm:text-base focus:ring-primary focus:border-primary">
-                        <div class="flex items-center space-x-4">
+                        <div class="flex items-center space-x-4" data-cy="modal-add-priority-item">
                           <span class="w-3 h-3 rounded-full" :class="[selectedPriority.color]"></span>
                           <span>{{ selectedPriority.title }}</span>
                         </div>
