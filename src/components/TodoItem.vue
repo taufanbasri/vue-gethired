@@ -1,7 +1,7 @@
 <script setup>
 import { TrashIcon, PencilIcon } from "@heroicons/vue/24/outline";
 import { ref, computed } from "vue";
-import DeleteModal from "./modals/DeleteModal.vue";
+import DeleteTodoModal from "./modals/DeleteTodoModal.vue";
 
 const props = defineProps({
   todo: {
@@ -53,10 +53,10 @@ const priorityColor = computed(() => {
       </div>
     </div>
 
-    <button @click="modal.openModal" class="w-6 h-6 text-lightDark">
+    <button @click="modal.openModal" class="w-6 h-6 text-lightDark" data-cy="todo-item-delete-button">
       <TrashIcon data-cy="todo-item-delete" />
     </button>
   </div>
 
-  <DeleteModal ref="modal" :todo="todo" />
+  <DeleteTodoModal ref="modal" :todo="todo" />
 </template>

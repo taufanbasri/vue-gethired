@@ -8,20 +8,20 @@ import {
   DialogPanel,
 } from '@headlessui/vue'
 import { ExclamationTriangleIcon } from "@heroicons/vue/24/outline";
-import { useActivityStore } from '../../stores/activity';
+import { useTodosStore } from "../../stores/todos";
 
 const isOpen = ref(false)
 
 const props = defineProps({
-  activity: {
+  todo: {
     type: Object
-  },
+  }
 })
 
-const activityStore = useActivityStore()
+const todoStore = useTodosStore()
 
 function deleteHandler() {
-  activityStore.removeActivity(props.activity.id)
+  todoStore.removeTodo(props.todo.id, props.todo.activity_group_id)
 }
 
 const closeModal = () => {
@@ -59,8 +59,8 @@ defineExpose({
               </div>
 
               <div class="flex flex-col items-center justify-center mx-auto text-lg pb-14 text-dark">
-                <p class="font-medium">Apakah anda yakin menghapus activity</p>
-                <p class="font-bold">"{{ activity.title }}"?</p>
+                <p class="font-medium">Apakah anda yakin menghapus List Item</p>
+                <p class="font-bold">"{{ todo.title }}"?</p>
               </div>
 
               <div class="flex items-center justify-center p-6 space-x-4">
