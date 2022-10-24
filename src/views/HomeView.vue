@@ -36,7 +36,7 @@ onMounted(() => {
       </button>
     </div>
 
-    <div v-if="!activityStore.activities.length"
+    <div v-if="!activityStore.activities.length" data-cy="todo-empty-state"
       class="flex items-center justify-center w-full max-w-lg mx-auto cursor-pointer mt-28">
       <img src="../assets/img/todo-empty-state.svg" alt="">
     </div>
@@ -44,7 +44,7 @@ onMounted(() => {
     <div v-else class="grid gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-14">
 
       <!-- Activity List -->
-      <ActivityComponent v-for="activity in activityStore.activities" :key="activity" :activity="activity" />
+      <ActivityComponent v-for="activity in activityStore.activities" :key="activity" :activity="activity" data-cy="activity-item" />
 
     </div>
   </main>
