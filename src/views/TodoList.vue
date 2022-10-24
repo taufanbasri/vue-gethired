@@ -1,6 +1,6 @@
 <script setup>
 
-import { ref, onMounted } from "vue";
+import { ref, onMounted, computed } from "vue";
 import { PlusIcon, ChevronLeftIcon } from "@heroicons/vue/24/solid";
 import { PencilIcon, ArrowsUpDownIcon } from "@heroicons/vue/24/outline";
 import { useRoute, useRouter } from "vue-router";
@@ -11,21 +11,26 @@ import TodoModal from "../components/modals/TodoModal.vue";
 const route = useRoute()
 const router = useRouter()
 const todosStore = useTodosStore()
-const todos = ref([])
 
 onMounted(async () => {
   await todosStore.getAllTodos(route.params.id)
-
-  todos.value = todosStore.todos
 })
 
 const modal = ref()
+
+const activityId = computed(() => {
+  return route.params.id
+})
 
 const backHandler = () => {
   router.push({
     path: '/',
     replace: true
   })
+}
+
+async function handleSubmit(data) {
+  await todosStore.createTodo(data)
 }
 
 </script>
@@ -67,13 +72,13 @@ const backHandler = () => {
       </button>
     </div>
 
-    <div class="mt-14">
+    <div class="flex flex-col space-y-4 mt-14">
       <!-- Card Item -->
-      <TodoItem v-for="todo in todos" :key="todo.id" :todo="todo" />
+      <TodoItem v-for="todo in todosStore.todos" :key="todo.id" :todo="todo" />
 
     </div>
 
     <!-- Modal -->
-    <TodoModal ref="modal"></TodoModal>
+    <TodoModal @on-submit-modal="handleSubmit" ref="modal" :activityId="activityId"></TodoModal>
   </main>
 </template>

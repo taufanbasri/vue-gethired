@@ -28,9 +28,9 @@ const todoStore = useTodosStore()
 function deleteHandler() {
   if (props.activity) {
     activityStore.removeActivity(props.activity.id)
-  } else {
+  }
+  if (props.todo) {
     todoStore.removeTodo(props.todo.id, props.todo.activity_group_id)
-
   }
 }
 

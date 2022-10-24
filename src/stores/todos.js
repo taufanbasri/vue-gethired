@@ -4,7 +4,6 @@ export const useTodosStore = defineStore("todos-store", {
   state: () => {
     return {
       todos: [],
-      activity: {},
     };
   },
   actions: {
@@ -15,10 +14,26 @@ export const useTodosStore = defineStore("todos-store", {
         .then(async (res) => await res.json())
         .then((json) => (this.todos = json.data));
     },
+    async createTodo(data) {
+      await fetch(`https://todo.api.devcode.gethired.id/todo-items`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json;charset=utf-8",
+        },
+        body: JSON.stringify(data),
+      })
+        .then(async () => await this.getAllTodos(data.activity_group_id))
+        .catch((e) => console.log(e));
+    },
     async removeTodo(todoId, activityId) {
       await fetch(`https://todo.api.devcode.gethired.id/todo-items/${todoId}`, {
         method: "DELETE",
-      }).then(async () => await this.getAllTodos(activityId));
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json;charset=utf-8",
+        },
+      }).then(() => this.getAllTodos(activityId));
     },
   },
 });
