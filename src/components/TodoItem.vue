@@ -1,11 +1,16 @@
 <script setup>
 import { TrashIcon, PencilIcon } from "@heroicons/vue/24/outline";
+import { ref } from "vue";
+import DeleteModal from "./modals/DeleteModal.vue";
 
 defineProps({
   todo: {
     type: Object
   }
 })
+
+const modal = ref()
+
 </script>
 
 <template>
@@ -24,8 +29,10 @@ defineProps({
       </div>
     </div>
 
-    <div class="w-6 h-6 text-lightDark">
+    <button @click="modal.openModal" class="w-6 h-6 text-lightDark">
       <TrashIcon data-cy="todo-item-delete" />
-    </div>
+    </button>
   </div>
+
+  <DeleteModal ref="modal" :todo="todo" />
 </template>

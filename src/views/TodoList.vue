@@ -3,12 +3,13 @@
 import { ref, onMounted } from "vue";
 import { PlusIcon, ChevronLeftIcon } from "@heroicons/vue/24/solid";
 import { PencilIcon, ArrowsUpDownIcon } from "@heroicons/vue/24/outline";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { useTodosStore } from "../stores/todos";
 import TodoItem from "../components/TodoItem.vue";
 import TodoModal from "../components/modals/TodoModal.vue";
 
 const route = useRoute()
+const router = useRouter()
 const todosStore = useTodosStore()
 const todos = ref([])
 
@@ -20,6 +21,13 @@ onMounted(async () => {
 
 const modal = ref()
 
+const backHandler = () => {
+  router.push({
+    path: '/',
+    replace: true
+  })
+}
+
 </script>
 
 <template>
@@ -28,10 +36,12 @@ const modal = ref()
     <div class="flex items-center justify-between">
 
       <div class="flex items-center text-4xl font-bold text-dark">
-        <div class="w-8 h-8">
+        <button @click="backHandler" class="w-8 h-8">
           <ChevronLeftIcon data-cy="todo-back-button" class="font-extrabold" />
-        </div>
+        </button>
+
         <h2 class="mx-4" data-cy="todo-title">Activity</h2>
+
         <div class="w-8 h-8 text-lightDark">
           <PencilIcon data-cy="todo-title-edit-button" />
         </div>

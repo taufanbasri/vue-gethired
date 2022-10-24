@@ -8,8 +8,31 @@ import {
   DialogPanel,
 } from '@headlessui/vue'
 import { ExclamationTriangleIcon } from "@heroicons/vue/24/outline";
+import { useActivityStore } from '../../stores/activity';
+import { useTodosStore } from "../../stores/todos";
 
 const isOpen = ref(false)
+
+const props = defineProps({
+  activity: {
+    type: Object
+  },
+  todo: {
+    type: Object
+  }
+})
+
+const activityStore = useActivityStore()
+const todoStore = useTodosStore()
+
+function deleteHandler() {
+  if (props.activity) {
+    activityStore.removeActivity(props.activity.id)
+  } else {
+    todoStore.removeTodo(props.todo.id, props.todo.activity_group_id)
+
+  }
+}
 
 const closeModal = () => {
   isOpen.value = false
@@ -24,7 +47,6 @@ defineExpose({
 })
 
 </script>
-
 
 <template>
   <TransitionRoot appear :show="isOpen" as="template">
@@ -48,18 +70,16 @@ defineExpose({
               </div>
 
               <div class="flex flex-col items-center justify-center mx-auto text-lg pb-14 text-dark">
-                <p class="font-medium">Apakah anda yakin menghapus activity</p>
-                <p class="font-bold">"Meeting dengan client"?</p>
+                <p class="font-medium">Apakah anda yakin menghapus {{ activity ? 'activity' : 'List Item' }}</p>
+                <p class="font-bold">"{{ activity ? activity.title : todo.title }}"?</p>
               </div>
-
-
 
               <div class="flex items-center justify-center p-6 space-x-4">
                 <button @click="closeModal" data-cy="modal-delete-cancell-button"
                   class="items-center hidden px-8 py-4 text-lg font-semibold text-[#4A4A4A] rounded-full sm:flex bg-[#F4F4F4]">
                   Batal
                 </button>
-                <button data-cy="modal-delete-confirm-button"
+                <button @click="deleteHandler" data-cy="modal-delete-confirm-button"
                   class="items-center hidden px-8 py-4 text-lg font-semibold text-white rounded-full sm:flex bg-sweetRed">
                   Hapus
                 </button>

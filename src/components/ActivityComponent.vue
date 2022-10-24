@@ -3,11 +3,8 @@ import { ref } from "vue";
 import { TrashIcon } from "@heroicons/vue/24/outline";
 import { computed } from "vue";
 import { useDateFormat } from "@vueuse/shared";
-// import { useActivityStore } from "../stores/activity";
 import { RouterLink } from "vue-router";
 import DeleteModal from "./modals/DeleteModal.vue";
-
-// const activityStore = useActivityStore()
 
 const props = defineProps({
   activity: {
@@ -22,10 +19,6 @@ const dateFormated = computed(() => {
 })
 
 const modal = ref()
-
-// function deleteHandler() {
-//   activityStore.removeActivity(props.activity.id)
-// }
 
 </script>
 
@@ -43,5 +36,5 @@ const modal = ref()
     </div>
   </div>
 
-  <DeleteModal ref="modal" />
+  <DeleteModal ref="modal" :activity="activity" />
 </template>
