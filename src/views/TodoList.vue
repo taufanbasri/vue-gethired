@@ -1,12 +1,22 @@
 <script setup>
 
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import { PlusIcon, ChevronLeftIcon } from "@heroicons/vue/24/solid";
 import { PencilIcon, ArrowsUpDownIcon } from "@heroicons/vue/24/outline";
+import { useRoute } from "vue-router";
+import { useTodosStore } from "../stores/todos";
 import TodoItem from "../components/TodoItem.vue";
+import TodoModal from "../components/modals/TodoModal.vue";
 
-import ModalComponent from "../components/ModalComponent.vue";
+const route = useRoute()
+const todosStore = useTodosStore()
+const todos = ref([])
 
+onMounted(async () => {
+  await todosStore.getAllTodos(route.params.id)
+
+  todos.value = todosStore.todos
+})
 
 const modal = ref()
 
@@ -49,11 +59,11 @@ const modal = ref()
 
     <div class="mt-14">
       <!-- Card Item -->
-      <TodoItem />
+      <TodoItem v-for="todo in todos" :key="todo.id" :todo="todo" />
 
     </div>
 
     <!-- Modal -->
-    <ModalComponent ref="modal"></ModalComponent>
+    <TodoModal ref="modal"></TodoModal>
   </main>
 </template>

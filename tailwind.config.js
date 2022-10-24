@@ -7,10 +7,9 @@ module.exports = {
         primary: "#16ABF8",
         dark: "#111111",
         lightDark: "#888888",
+        sweetRed: "#ED4C5C",
       },
     },
   },
-  plugins: [
-    require('@tailwindcss/forms'),
-  ],
+  plugins: [require("@tailwindcss/forms")],
 };

@@ -1,5 +1,11 @@
 <script setup>
 import { TrashIcon, PencilIcon } from "@heroicons/vue/24/outline";
+
+defineProps({
+  todo: {
+    type: Object
+  }
+})
 </script>
 
 <template>
@@ -11,7 +17,7 @@ import { TrashIcon, PencilIcon } from "@heroicons/vue/24/outline";
 
       <div data-cy="todo-item-priority-indicator" class="w-3 h-3 bg-red-500 rounded-full"></div>
 
-      <h3 data-cy="todo-item-title" class="text-lg font-medium text-dark">Daftar Belanja Bulanan</h3>
+      <h3 data-cy="todo-item-title" class="text-lg font-medium text-dark">{{ todo.title }}</h3>
 
       <div class="w-4 h-4 text-lightDark">
         <PencilIcon data-cy="todo-item-edit-button" />

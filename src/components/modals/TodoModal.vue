@@ -16,11 +16,31 @@ import { ChevronDownIcon } from '@heroicons/vue/20/solid'
 import { XMarkIcon } from "@heroicons/vue/24/outline";
 
 const priorities = [
-  { name: 'Very High', color: 'bg-[#ED4C5C]' },
-  { name: 'High', color: 'bg-[#F8A541]' },
-  { name: 'Medium', color: 'bg-[#00A790]' },
-  { name: 'Low', color: 'bg-[#428BC1]' },
-  { name: 'Very Low', color: 'bg-[#8942C1]' },
+  {
+    title: 'Very High',
+    color: 'bg-[#ED4C5C]',
+    name: 'very-high'
+  },
+  {
+    title: 'High',
+    color: 'bg-[#F8A541]',
+    name: 'high'
+  },
+  {
+    title: 'Medium',
+    color: 'bg-[#00A790]',
+    name: 'medium'
+  },
+  {
+    title: 'Low',
+    color: 'bg-[#428BC1]',
+    name: 'low'
+  },
+  {
+    title: 'Very Low',
+    color: 'bg-[#8942C1]',
+    name: 'very-low'
+  },
 ]
 const selectedPriority = ref(priorities[0])
 
@@ -34,6 +54,8 @@ const openModal = () => {
 
   isOpen.value = true
 }
+
+const handleSubmit = () => { }
 
 defineExpose({
   openModal, closeModal
@@ -66,7 +88,7 @@ defineExpose({
                 </div>
               </DialogTitle>
 
-              <form>
+              <form @submit="handleSubmit">
                 <div class="px-6 my-6">
                   <div>
                     <label data-cy="modal-add-name-title" for="price" class="block text-xs font-semibold text-dark">NAMA
@@ -87,7 +109,7 @@ defineExpose({
                           class="relative p-4 pr-10 text-left bg-white rounded-lg shadow-md cursor-default focus:outline-none focus-visible:border-primary focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-primary sm:text-base focus:ring-primary focus:border-primary">
                           <div class="flex items-center space-x-4">
                             <span class="w-3 h-3 rounded-full" :class="[selectedPriority.color]"></span>
-                            <span>{{ selectedPriority.name }}</span>
+                            <span>{{ selectedPriority.title }}</span>
                           </div>
                           <span class="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
                             <ChevronDownIcon class="w-5 h-5 text-gray-400" aria-hidden="true" />
@@ -99,7 +121,7 @@ defineExpose({
                           <ListboxOptions
                             class="absolute mt-1 overflow-auto text-base font-normal bg-white rounded-md shadow-lg ring-1 ring-primary ring-opacity-5 focus:outline-none sm:text-base">
                             <ListboxOption v-slot="{ active, selected }" v-for="priority in priorities"
-                              :key="priority.name" :value="priority" as="template">
+                              :key="priority.title" :value="priority" as="template">
                               <li :class="[
                                 active ? 'bg-primary text-white' : 'text-dark',
                                 'relative cursor-default select-none w-full px-4 py-2',
@@ -109,7 +131,7 @@ defineExpose({
                                   'flex items-center space-x-4',
                                 ]">
                                   <span class="w-3 h-3 rounded-full" :class="[priority.color]"></span>
-                                  <span>{{ priority.name }}</span>
+                                  <span>{{ priority.title }}</span>
                                 </div>
                               </li>
                             </ListboxOption>
