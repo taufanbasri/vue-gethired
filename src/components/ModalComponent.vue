@@ -59,27 +59,29 @@ defineExpose({
               class="w-full max-w-4xl text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
               <DialogTitle as="div"
                 class="flex items-center justify-between p-6 text-lg font-medium leading-6 border-b border-[#E5E5E5]">
-                <h3 class="text-lg font-semibold">Tambah Item List</h3>
+                <h3 class="text-lg font-semibold" data-cy="modal-add-title">Tambah Item List</h3>
 
                 <div class="w-6 h-6 cursor-pointer text-[#A4A4A4]" @click="closeModal">
-                  <XMarkIcon />
+                  <XMarkIcon data-cy="modal-add-close-button" />
                 </div>
               </DialogTitle>
 
               <form>
                 <div class="px-6 my-6">
                   <div>
-                    <label for="price" class="block text-xs font-semibold text-dark">NAMA LIST ITEM</label>
+                    <label data-cy="modal-add-name-title" for="price" class="block text-xs font-semibold text-dark">NAMA
+                      LIST ITEM</label>
                     <div class="relative mt-2 rounded-md shadow-sm">
-                      <input type="text"
+                      <input type="text" data-cy="modal-add-name-input"
                         class="block w-full p-4 rounded-md border-lightDark focus:border-primary focus:ring-primary sm:text-base"
                         placeholder="Tambahkan nama list item">
                     </div>
                   </div>
 
                   <div class="mt-4">
-                    <label for="price" class="block text-xs font-semibold text-dark">PRIORITY</label>
-                    <Listbox v-model="selectedPriority">
+                    <label data-cy="modal-add-priority-title" for="priority"
+                      class="block text-xs font-semibold text-dark">PRIORITY</label>
+                    <Listbox v-model="selectedPriority" data-cy="modal-add-priority-dropdown">
                       <div class="mt-2">
                         <ListboxButton
                           class="relative p-4 pr-10 text-left bg-white rounded-lg shadow-md cursor-default focus:outline-none focus-visible:border-primary focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-primary sm:text-base focus:ring-primary focus:border-primary">
@@ -120,7 +122,7 @@ defineExpose({
                 </div>
 
                 <div class="border-t border-[#E5E5E5] p-6 flex justify-end">
-                  <button
+                  <button data-cy="modal-add-save-button"
                     class="items-center hidden px-8 py-4 text-lg font-semibold text-white rounded-full sm:flex bg-primary">
 
                     Simpan

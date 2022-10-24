@@ -3,7 +3,7 @@
 import { ref } from "vue";
 import { PlusIcon, ChevronLeftIcon } from "@heroicons/vue/24/solid";
 import { PencilIcon, ArrowsUpDownIcon } from "@heroicons/vue/24/outline";
-import ActivityItem from "../components/ActivityItem.vue";
+import TodoItem from "../components/TodoItem.vue";
 
 import ModalComponent from "../components/ModalComponent.vue";
 
@@ -19,20 +19,20 @@ const modal = ref()
 
       <div class="flex items-center text-4xl font-bold text-dark">
         <div class="w-8 h-8">
-          <ChevronLeftIcon class="font-extrabold" />
+          <ChevronLeftIcon data-cy="todo-back-button" class="font-extrabold" />
         </div>
-        <h2 class="mx-4">Activity</h2>
+        <h2 class="mx-4" data-cy="todo-title">Activity</h2>
         <div class="w-8 h-8 text-lightDark">
-          <PencilIcon />
+          <PencilIcon data-cy="todo-title-edit-button" />
         </div>
       </div>
 
       <div class="flex items-center space-x-4">
         <div class="flex items-center justify-center w-12 h-12 border border-gray-300 rounded-full text-lightDark">
-          <ArrowsUpDownIcon class="w-8 h-8" />
+          <ArrowsUpDownIcon data-cy="todo-sort-button" class="w-8 h-8" />
         </div>
 
-        <button @click="modal.openModal"
+        <button @click="modal.openModal" data-cy="todo-add-button"
           class="items-center hidden px-8 py-4 text-lg font-semibold text-white rounded-full sm:flex bg-primary">
           <span class="w-6 h-6 mr-2 text-lg font-semibold">
             <PlusIcon />
@@ -49,7 +49,7 @@ const modal = ref()
 
     <div class="mt-14">
       <!-- Card Item -->
-      <ActivityItem />
+      <TodoItem />
 
     </div>
 

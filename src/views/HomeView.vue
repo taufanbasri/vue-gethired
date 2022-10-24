@@ -7,27 +7,28 @@ import ActivityComponent from "../components/ActivityComponent.vue";
 
 <template>
   <main>
-      <!-- Panel title -->
-      <div class="flex items-center justify-between">
-        <h2 class="text-4xl font-bold text-dark">Activity</h2>
+    <!-- Panel title -->
+    <div class="flex items-center justify-between">
+      <h2 class="text-4xl font-bold text-dark" data-cy="activity-title">Activity</h2>
 
-        <button class="items-center hidden px-8 py-4 text-lg font-semibold text-white rounded-full sm:flex bg-primary">
-          <span class="w-6 h-6 mr-2 text-lg font-semibold">
-            <PlusIcon />
-          </span>
-          Tambah
-        </button>
+      <button data-cy="activity-add-button"
+        class="items-center hidden px-8 py-4 text-lg font-semibold text-white rounded-full sm:flex bg-primary">
+        <span class="w-6 h-6 mr-2 text-lg font-semibold">
+          <PlusIcon />
+        </span>
+        Tambah
+      </button>
 
-        <button class="items-center w-16 h-16 p-4 text-lg font-semibold text-white rounded-full sm:hidden bg-primary">
-          <PlusIcon class="font-extrabold" />
-        </button>
-      </div>
+      <button class="items-center w-16 h-16 p-4 text-lg font-semibold text-white rounded-full sm:hidden bg-primary">
+        <PlusIcon class="font-extrabold" />
+      </button>
+    </div>
 
-      <div class="grid gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-14">
+    <div class="grid gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-14">
 
-        <!-- Activity List -->
-        <ActivityComponent v-for="item in 8" :key="item" />
+      <!-- Activity List -->
+      <ActivityComponent v-for="item in 8" :key="item" />
 
-      </div>
+    </div>
   </main>
 </template>
