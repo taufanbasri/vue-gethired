@@ -6,8 +6,7 @@ import { TrashIcon, PencilIcon } from "@heroicons/vue/24/outline";
   <div class="flex justify-between w-full px-6 py-8 bg-white rounded-xl">
     <div class="flex items-center justify-between space-x-4">
 
-      <input id="remember-me" name="remember-me" type="checkbox"
-        class="w-6 h-6 text-white border-gray-300 bg-primary" />
+      <input id="checked" name="remember-me" type="checkbox" class="w-6 h-6 border-gray-300 text-primary focus:ring-primary" />
 
       <div class="w-3 h-3 bg-red-500 rounded-full"></div>
 
