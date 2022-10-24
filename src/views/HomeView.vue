@@ -1,7 +1,15 @@
 <script setup>
 
 import { PlusIcon } from "@heroicons/vue/24/solid";
+import { onMounted } from "vue";
 import ActivityComponent from "../components/ActivityComponent.vue";
+import { useActivityStore } from "../stores/activity";
+
+const activityStore = useActivityStore()
+
+onMounted(() => {
+  activityStore.init()
+})
 
 </script>
 
@@ -24,10 +32,15 @@ import ActivityComponent from "../components/ActivityComponent.vue";
       </button>
     </div>
 
-    <div class="grid gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-14">
+    <div v-if="!activityStore.activities.length"
+      class="flex items-center justify-center w-full max-w-lg mx-auto cursor-pointer mt-28">
+      <img src="../assets/img/todo-empty-state.svg" alt="">
+    </div>
+
+    <div v-else class="grid gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-14">
 
       <!-- Activity List -->
-      <ActivityComponent v-for="item in 8" :key="item" />
+      <ActivityComponent v-for="activity in activityStore.activities" :key="activity" :activity="activity" />
 
     </div>
   </main>
