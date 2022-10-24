@@ -44,7 +44,7 @@ onMounted(() => {
     <div v-else class="grid gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-14">
 
       <!-- Activity List -->
-      <ActivityComponent v-for="activity in activityStore.activities" :key="activity" :activity="activity" data-cy="activity-item" />
+      <ActivityComponent v-for="activity in activityStore.activities" :key="activity" :activity="activity"  />
 
     </div>
   </main>

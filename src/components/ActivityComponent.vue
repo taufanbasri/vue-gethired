@@ -23,7 +23,7 @@ const modal = ref()
 </script>
 
 <template>
-  <div class="flex flex-col justify-between px-6 py-8 bg-white rounded-xl">
+  <div data-cy="activity-item" class="flex flex-col justify-between px-6 py-8 bg-white rounded-xl">
     <RouterLink :to="`/todos/${activity.id}`" class="cursor-pointer h-28">
       <h3 class="text-lg font-bold text-dark" data-cy="activity-item-title">{{ activity.title }}</h3>
     </RouterLink>
