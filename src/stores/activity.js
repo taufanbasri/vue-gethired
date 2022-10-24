@@ -17,6 +17,10 @@ export const useActivityStore = defineStore("activity-store", {
     async createActivity() {
       await fetch("https://todo.api.devcode.gethired.id/activity-groups", {
         method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json;charset=utf-8",
+        },
         body: JSON.stringify({
           title: "New Activity",
           email: "taufanprasetyobasri@gmail.com",
