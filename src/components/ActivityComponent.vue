@@ -30,8 +30,8 @@ const modal = ref()
 
     <div class="flex items-center justify-between text-lightDark">
       <span data-cy="activity-item-date">{{ dateFormated }}</span>
-      <button @click="modal.openModal" class="w-6 h-6">
-        <TrashIcon data-cy="activity-item-delete-button" />
+      <button data-cy="activity-item-delete-button" @click="modal.openModal" class="w-6 h-6">
+        <TrashIcon />
       </button>
     </div>
   </div>

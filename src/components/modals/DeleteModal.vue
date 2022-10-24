@@ -75,7 +75,7 @@ defineExpose({
               </div>
 
               <div class="flex items-center justify-center p-6 space-x-4">
-                <button @click="closeModal" data-cy="modal-delete-cancell-button"
+                <button data-cy=modal-delete-cancel-button @click="closeModal"
                   class="items-center hidden px-8 py-4 text-lg font-semibold text-[#4A4A4A] rounded-full sm:flex bg-[#F4F4F4]">
                   Batal
                 </button>
