@@ -6,11 +6,14 @@ import { useActivityStore } from "../stores/activity";
 import DeleteModal from "./modals/DeleteModal.vue";
 import ToastModal from "./modals/ToastModal.vue";
 import ActivityCard from "./ActivityCard.vue";
+import { storeToRefs } from "pinia";
 
 const modal = ref();
 const toast = ref();
 const currentActivity = ref({});
 const activityStore = useActivityStore();
+
+const { activities } = storeToRefs(activityStore);
 
 const addActivity = async () => {
   await activityStore.createActivity();
@@ -59,7 +62,7 @@ onMounted(async () => {
   </div>
 
   <div
-    v-if="!activityStore.activities.length"
+    v-if="!activities.length"
     data-cy="activity-empty-state"
     class="flex items-center justify-center w-full max-w-lg mx-auto cursor-pointer mt-28"
   >
@@ -72,7 +75,7 @@ onMounted(async () => {
   >
     <!-- Activity List -->
     <ActivityCard
-      v-for="activity in activityStore.activities"
+      v-for="activity in activities"
       :key="activity"
       :activity="activity"
       @delete="deleteModal(activity)"

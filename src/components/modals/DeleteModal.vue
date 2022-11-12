@@ -7,7 +7,6 @@ import {
   DialogPanel,
 } from "@headlessui/vue";
 import { ExclamationTriangleIcon } from "@heroicons/vue/24/outline";
-// import { useActivityStore } from "../../stores/activity";
 
 const isOpen = ref(false);
 
@@ -19,12 +18,6 @@ defineProps({
 });
 
 defineEmits(["delete-modal"]);
-
-// const activityStore = useActivityStore();
-
-// function deleteHandler() {
-//   activityStore.removeActivity(props.activity.id);
-// }
 
 const closeModal = () => {
   isOpen.value = false;

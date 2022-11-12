@@ -33,7 +33,7 @@ export const useActivityStore = defineStore("activity-store", {
           title: "New Activity",
           email: "taufanprasetyobasri@gmail.com",
         }),
-      }).then(async () => await this.getActivities());
+      });
     },
     async removeActivity(activityId) {
       await fetch(
@@ -41,8 +41,11 @@ export const useActivityStore = defineStore("activity-store", {
         {
           method: "DELETE",
         }
-      );
+      ).then(() => {
+        this.activities = this.activities.filter(
+          (item) => item.id !== activityId
+        );
+      });
     },
   },
-  getters: {},
 });
