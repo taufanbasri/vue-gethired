@@ -41,7 +41,8 @@ export const useActivityStore = defineStore("activity-store", {
         {
           method: "DELETE",
         }
-      ).then(async () => await this.getActivities());
+      );
     },
   },
+  getters: {},
 });
