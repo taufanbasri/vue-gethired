@@ -16,11 +16,13 @@ export const useActivityStore = defineStore("activity-store", {
         .then((json) => (this.activities = json.data));
     },
     async getActivityOne(activityId) {
-      await fetch(
+      const response = await fetch(
         `https://todo.api.devcode.gethired.id/activity-groups/${activityId}`
       )
         .then(async (res) => await res.json())
-        .then((json) => (this.activity = json));
+        .catch((error) => console.log(error));
+
+      return (this.activity = response);
     },
     async createActivity() {
       await fetch("https://todo.api.devcode.gethired.id/activity-groups", {

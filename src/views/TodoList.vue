@@ -1,51 +1,51 @@
 <script setup>
-
-import { ref, onMounted, computed } from "vue";
+import { ref, onMounted, onUnmounted, computed } from "vue";
 import { PlusIcon, ChevronLeftIcon } from "@heroicons/vue/24/solid";
 import { PencilIcon, ArrowsUpDownIcon } from "@heroicons/vue/24/outline";
 import { useRoute, useRouter } from "vue-router";
 import { useTodosStore } from "../stores/todos";
 import TodoItem from "../components/TodoItem.vue";
 import TodoModal from "../components/modals/TodoModal.vue";
-import { useActivityStore } from "../stores/activity";
+import { storeToRefs } from "pinia";
 
-const route = useRoute()
-const router = useRouter()
-const todosStore = useTodosStore()
-const activityStore = useActivityStore()
+const route = useRoute();
+const router = useRouter();
+const todosStore = useTodosStore();
+
+const { todos, activity } = storeToRefs(todosStore);
 
 onMounted(async () => {
-  await todosStore.getAllTodos(route.params.id)
-  await activityStore.getActivityOne(route.params.id)
-})
+  await todosStore.getAllTodos(route.params.id);
+});
 
-const modal = ref()
+onUnmounted(() => {
+  todos.value = [];
+  activity.value = "";
+});
+
+const modal = ref();
 
 const activityId = computed(() => {
-  return route.params.id
-})
-const activity = computed(() => {
-  return activityStore.activity.title
-})
+  return route.params.id;
+});
 
 const backHandler = () => {
   router.push({
-    path: '/',
-    replace: true
-  })
-}
+    path: "/",
+    replace: true,
+  });
+};
 
 async function handleSubmit(data) {
-  await todosStore.createTodo(data)
+  await todosStore.createTodo(data);
+  modal.value.closeModal();
 }
-
 </script>
 
 <template>
   <main>
     <!-- Panel title -->
     <div class="flex items-center justify-between">
-
       <div class="flex items-center text-4xl font-bold text-dark">
         <button @click="backHandler" class="w-8 h-8">
           <ChevronLeftIcon data-cy="todo-back-button" class="font-extrabold" />
@@ -59,12 +59,17 @@ async function handleSubmit(data) {
       </div>
 
       <div class="flex items-center space-x-4">
-        <div class="flex items-center justify-center w-12 h-12 border border-gray-300 rounded-full text-lightDark">
+        <div
+          class="flex items-center justify-center w-12 h-12 border border-gray-300 rounded-full text-lightDark"
+        >
           <ArrowsUpDownIcon data-cy="todo-sort-button" class="w-8 h-8" />
         </div>
 
-        <button @click="modal.openModal" data-cy="todo-add-button"
-          class="items-center hidden px-8 py-4 text-lg font-semibold text-white rounded-full sm:flex bg-primary">
+        <button
+          @click="modal.openModal"
+          data-cy="todo-add-button"
+          class="items-center hidden px-8 py-4 text-lg font-semibold text-white rounded-full sm:flex bg-primary"
+        >
           <span class="w-6 h-6 mr-2 text-lg font-semibold">
             <PlusIcon />
           </span>
@@ -73,23 +78,31 @@ async function handleSubmit(data) {
       </div>
 
       <!-- Mobile View -->
-      <button class="items-center w-16 h-16 p-4 text-lg font-semibold text-white rounded-full sm:hidden bg-primary">
+      <button
+        class="items-center w-16 h-16 p-4 text-lg font-semibold text-white rounded-full sm:hidden bg-primary"
+      >
         <PlusIcon class="font-extrabold" />
       </button>
     </div>
 
-    <div v-if="!todosStore.todos.length" data-cy="todo-empty-state"
-      class="flex items-center justify-center w-full max-w-lg mx-auto cursor-pointer mt-28">
-      <img src="../assets/img/todo-empty-state.svg" alt="">
+    <div
+      v-if="!todos.length"
+      data-cy="todo-empty-state"
+      class="flex items-center justify-center w-full max-w-lg mx-auto cursor-pointer mt-28"
+    >
+      <img src="../assets/img/todo-empty-state.svg" alt="" />
     </div>
 
     <div class="flex flex-col space-y-4 mt-14">
       <!-- Card Item -->
-      <TodoItem v-for="todo in todosStore.todos" :key="todo.id" :todo="todo" />
-
+      <TodoItem v-for="todo in todos" :key="todo.id" :todo="todo" />
     </div>
 
     <!-- Modal -->
-    <TodoModal @on-submit-modal="handleSubmit" ref="modal" :activityId="activityId"></TodoModal>
+    <TodoModal
+      @on-submit-modal="handleSubmit"
+      ref="modal"
+      :activityId="activityId"
+    ></TodoModal>
   </main>
 </template>
