@@ -7,10 +7,17 @@ import { useTodosStore } from "../stores/todos";
 import TodoItem from "../components/TodoItem.vue";
 import TodoModal from "../components/modals/TodoModal.vue";
 import { storeToRefs } from "pinia";
+import DeleteModal from "../components/modals/DeleteModal.vue";
+import ToastModal from "../components/modals/ToastModal.vue";
 
 const route = useRoute();
 const router = useRouter();
 const todosStore = useTodosStore();
+
+const modal = ref();
+const toast = ref();
+const deleteModal = ref();
+const currentTodo = ref({});
 
 const { todos, activity } = storeToRefs(todosStore);
 
@@ -22,8 +29,6 @@ onUnmounted(() => {
   todos.value = [];
   activity.value = "";
 });
-
-const modal = ref();
 
 const activityId = computed(() => {
   return route.params.id;
@@ -40,6 +45,17 @@ async function handleSubmit(data) {
   await todosStore.createTodo(data);
   modal.value.closeModal();
 }
+
+const deleteModalHandler = (todo) => {
+  currentTodo.value = todo;
+  deleteModal.value.openModal();
+};
+
+const deleteHandler = async () => {
+  await todosStore.removeTodo(currentTodo.value.id);
+  deleteModal.value.closeModal();
+  toast.value.toggleModal();
+};
 </script>
 
 <template>
@@ -95,7 +111,12 @@ async function handleSubmit(data) {
 
     <div class="flex flex-col space-y-4 mt-14">
       <!-- Card Item -->
-      <TodoItem v-for="todo in todos" :key="todo.id" :todo="todo" />
+      <TodoItem
+        v-for="todo in todos"
+        :key="todo.id"
+        :todo="todo"
+        @delete="deleteModalHandler(todo)"
+      />
     </div>
 
     <!-- Modal -->
@@ -103,6 +124,16 @@ async function handleSubmit(data) {
       @on-submit-modal="handleSubmit"
       ref="modal"
       :activityId="activityId"
-    ></TodoModal>
+    />
+
+    <DeleteModal
+      data-cy="modal-delete"
+      ref="deleteModal"
+      :todo="true"
+      :message="currentTodo?.title"
+      @delete-modal="deleteHandler"
+    />
+
+    <ToastModal ref="toast" data-cy="modal-information" />
   </main>
 </template>

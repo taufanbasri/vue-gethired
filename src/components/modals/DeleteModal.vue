@@ -15,6 +15,10 @@ defineProps({
     type: String,
     default: "New String",
   },
+  todo: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 defineEmits(["delete-modal"]);
@@ -71,7 +75,10 @@ defineExpose({
               <div
                 class="flex flex-col items-center justify-center mx-auto text-lg pb-14 text-dark"
               >
-                <p class="font-medium">Apakah anda yakin menghapus activity</p>
+                <p class="font-medium">
+                  Apakah anda yakin menghapus
+                  {{ !todo ? "activity" : "List Item" }}
+                </p>
                 <p class="font-bold">"{{ message }}"?</p>
               </div>
 

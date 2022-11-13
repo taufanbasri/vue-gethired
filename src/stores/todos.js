@@ -40,14 +40,16 @@ export const useTodosStore = defineStore("todos-store", {
 
       return (this.todos = [respose, ...this.todos]);
     },
-    async removeTodo(todoId, activityId) {
+    async removeTodo(todoId) {
       await fetch(`https://todo.api.devcode.gethired.id/todo-items/${todoId}`, {
         method: "DELETE",
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json;charset=utf-8",
         },
-      }).then(() => this.getAllTodos(activityId));
+      }).then(
+        () => (this.todos = this.todos.filter((item) => item.id !== todoId))
+      );
     },
   },
 });

@@ -1,6 +1,6 @@
 <script setup>
 import { TrashIcon, PencilIcon } from "@heroicons/vue/24/outline";
-import { ref, computed } from "vue";
+import { computed } from "vue";
 
 const props = defineProps({
   todo: {
@@ -8,7 +8,7 @@ const props = defineProps({
   },
 });
 
-const modal = ref();
+defineEmits(["delete"]);
 
 const priorityColor = computed(() => {
   let background = "";
@@ -61,7 +61,7 @@ const priorityColor = computed(() => {
     </div>
 
     <button
-      @click="modal.openModal"
+      @click.stop="$emit('delete')"
       class="w-6 h-6 text-lightDark"
       data-cy="todo-item-delete-button"
     >
